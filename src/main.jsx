@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     {/* Évite le flash entre Light/Dark au chargement */}
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AuthProvider>
           <App />
         </AuthProvider>
