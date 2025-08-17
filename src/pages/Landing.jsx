@@ -14,6 +14,9 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
+import helvioCardGlacier from "../assets/helvio_card_glacier.svg";
+import helvioPhone from "../assets/helvio_phone_mock.svg";
+import helvioDashboard from "../assets/helvio_dashboard_mock.svg";
 
 export default function Landing() {
   const { accessToken } = useAuth();
@@ -112,7 +115,7 @@ export default function Landing() {
                 pointerEvents="none"
               >
                 <Image
-                  src="/assets/helvio_dashboard_mock.svg"
+                  src={helvioDashboard}
                   alt="Aperçu dashboard Helvio"
                   objectFit="cover"
                   w={{ base: "82vw", sm: "500px" }}
@@ -135,7 +138,7 @@ export default function Landing() {
                 pointerEvents="none"
               >
                 <Image
-                  src="/assets/helvio_card_glacier.svg"
+                  src={helvioCardGlacier}
                   alt="Carte Helvio glacier"
                   objectFit="cover"
                   w={{ base: "182px", sm: "222px" }}
@@ -157,7 +160,7 @@ export default function Landing() {
                 pointerEvents="none"
               >
                 <Image
-                  src="/assets/helvio_phone_mock.svg"
+                  src={helvioPhone}
                   alt="Mobile Helvio"
                   objectFit="cover"
                   w={{ base: "175px", sm: "205px" }}
