@@ -14,9 +14,9 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
-import helvioCardGlacier from "../assets/helvio_card_glacier.svg";
-import helvioPhone from "../assets/helvio_phone_mock.svg";
-import helvioDashboard from "../assets/helvio_dashboard_mock.svg";
+import helvioCardGlacier from "../assets/helvio_card_glacier.svg?url";
+import helvioPhone from "../assets/helvio_phone_mock.svg?url";
+import helvioDashboard from "../assets/helvio_dashboard_mock.svg?url";
 
 export default function Landing() {
   const { accessToken } = useAuth();
