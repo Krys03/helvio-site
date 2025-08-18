@@ -11,7 +11,7 @@ import {
   Badge,
   Image,
   useColorModeValue,
-  useBreakpointValue, // ⬅️ ajouté pour le responsive fin
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
@@ -31,31 +31,87 @@ export default function Landing() {
   const featuresBg = useColorModeValue("gray.50", "gray.900");
   const thinWhite = useColorModeValue("whiteAlpha.900", "whiteAlpha.600"); // bord 1px net
 
-  // ======= Responsive uniquement (même design) =======
-  const visualMinH = useBreakpointValue({ base: "440px", md: "580px" });
+  // ===== Responsive (plus de breakpoints, pas de changement visuel voulu) =====
+  const visualMinH = useBreakpointValue({
+    base: "460px",
+    sm: "520px",
+    md: "600px",
+    lg: "640px",
+    xl: "700px",
+    "2xl": "760px",
+  });
 
+  // Largeur dashboard
   const dashWidth = useBreakpointValue({
-    base: "82vw",
-    sm: "500px",
-    md: "520px",
+    base: "min(88vw, 520px)",
+    sm: "min(86vw, 560px)",
+    md: "540px",
     lg: "560px",
+    xl: "600px",
+    "2xl": "680px",
   });
   const dashTop = useBreakpointValue({ base: "6px", md: "16px" });
-  const dashLeft = useBreakpointValue({ base: "50%", md: "12%" });
+  const dashLeft = useBreakpointValue({ base: "50%", md: "10%" });
   const dashTransform = useBreakpointValue({ base: "translateX(-50%)", md: "none" });
 
-  const cardWidth = useBreakpointValue({ base: "182px", sm: "222px" });
-  const cardBottom = useBreakpointValue({ base: "138px", md: "228px" });
-  const cardLeft = useBreakpointValue({ base: "14%", md: "5%" });
+  // Carte (gauche)
+  const cardWidth = useBreakpointValue({
+    base: "clamp(168px, 44vw, 220px)",
+    sm: "clamp(182px, 38vw, 230px)",
+    md: "230px",
+    lg: "238px",
+    xl: "248px",
+    "2xl": "260px",
+  });
+  const cardBottom = useBreakpointValue({
+    base: "120px",
+    sm: "138px",
+    md: "200px",
+    lg: "220px",
+    xl: "228px",
+    "2xl": "236px",
+  });
+  const cardLeft = useBreakpointValue({
+    base: "8%",
+    sm: "10%",
+    md: "4%",
+    lg: "3%",
+    xl: "2%",
+    "2xl": "1%",
+  });
   const cardRotate = "-3.5deg";
 
-  const phoneWidth = useBreakpointValue({ base: "175px", sm: "205px" });
-  const phoneBottom = useBreakpointValue({ base: "150px", md: "195px" });
-  const phoneRight = useBreakpointValue({ base: "20%", md: "-18%" });
+  // Téléphone (droite)
+  const phoneWidth = useBreakpointValue({
+    base: "clamp(164px, 42vw, 205px)",
+    sm: "205px",
+    md: "208px",
+    lg: "214px",
+    xl: "220px",
+    "2xl": "230px",
+  });
+  const phoneBottom = useBreakpointValue({
+    base: "118px",
+    sm: "130px",
+    md: "160px",
+    lg: "180px",
+    xl: "195px",
+    "2xl": "205px",
+  });
+  // ⚠️ Pas de négatif sur petits écrans pour éviter le scroll, léger négatif seulement dès lg+
+  const phoneRight = useBreakpointValue({
+    base: "6%",
+    sm: "8%",
+    md: "4%",
+    lg: "-6%",
+    xl: "-10%",
+    "2xl": "-12%",
+  });
   const phoneRotate = "10deg";
 
   return (
-    <Box as="main">
+    // overflowX hidden = on coupe tout débordement (élimine le scroll latéral)
+    <Box as="main" overflowX="hidden">
       {/* ===== HERO (fond blanc) ===== */}
       <Box
         as="section"
@@ -99,7 +155,13 @@ export default function Landing() {
               </Text>
 
               <HStack spacing={3} flexWrap="wrap">
-                <Button as={RouterLink} to={ctaHref} size="lg" bgGradient="linear(to-r, #6366F1, #22D3EE)" color="white">
+                <Button
+                  as={RouterLink}
+                  to={ctaHref}
+                  size="lg"
+                  bgGradient="linear(to-r, #6366F1, #22D3EE)"
+                  color="white"
+                >
                   {ctaLabel}
                 </Button>
                 <Button
@@ -134,7 +196,7 @@ export default function Landing() {
                 overflow="hidden"
                 shadow="xl"
                 border="1px solid"
-                borderColor={thinWhite}   // ✅ liseré 1px collé (inchangé)
+                borderColor={thinWhite}   // ✅ liseré 1px collé
                 zIndex={2}
                 pointerEvents="none"
               >
@@ -149,17 +211,17 @@ export default function Landing() {
                 />
               </Box>
 
-              {/* Carte à gauche — chevauchement franc sur le coin bas-gauche */}
+              {/* Carte à gauche — chevauchement */}
               <Box
                 position="absolute"
-                bottom={cardBottom}         // ⬅️ responsive
-                left={cardLeft}             // ⬅️ responsive
+                bottom={cardBottom}
+                left={cardLeft}
                 transform={`rotate(${cardRotate})`}
                 rounded="2xl"
                 overflow="hidden"
                 //shadow="lg"
                 //border="1px solid"
-                //borderColor={thinWhite}   // ✅ inchangé (toujours commenté)
+                //borderColor={thinWhite}
                 zIndex={3}
                 pointerEvents="none"
               >
@@ -167,23 +229,23 @@ export default function Landing() {
                   src={helvioCardGlacier}
                   alt="Carte Helvio glacier"
                   objectFit="cover"
-                  w={cardWidth}             // ⬅️ responsive
+                  w={cardWidth}
                   loading="lazy"
                   draggable={false}
                 />
               </Box>
 
-              {/* Téléphone à droite — chevauchement sur le coin bas-droit */}
+              {/* Téléphone à droite — chevauchement */}
               <Box
                 position="absolute"
-                bottom={phoneBottom}        // ⬅️ responsive
-                right={phoneRight}          // ⬅️ responsive
+                bottom={phoneBottom}
+                right={phoneRight}
                 transform={`rotate(${phoneRotate})`}
                 rounded="2xl"
                 overflow="hidden"
                 //shadow="lg"
                 //border="1px solid"
-                //borderColor={thinWhite}   // ✅ inchangé (toujours commenté)
+                //borderColor={thinWhite}
                 zIndex={3}
                 pointerEvents="none"
               >
@@ -191,7 +253,7 @@ export default function Landing() {
                   src={helvioPhone}
                   alt="Mobile Helvio"
                   objectFit="cover"
-                  w={phoneWidth}            // ⬅️ responsive
+                  w={phoneWidth}
                   loading="lazy"
                   draggable={false}
                 />
